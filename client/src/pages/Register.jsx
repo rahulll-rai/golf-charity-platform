@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { motion } from "framer-motion";
+import { User, Mail, Lock } from "lucide-react";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -43,36 +44,45 @@ const Register = () => {
         <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
           <div>
             <label className="block text-sm font-semibold text-emerald-100/80 mb-2 uppercase tracking-wide">Full Name</label>
-            <input 
-              type="text" 
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
-              placeholder="John Doe"
-            />
+            <div className="relative">
+              <User className="absolute left-4 top-3.5 w-5 h-5 text-emerald-500/50" />
+              <input 
+                type="text" 
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
+                placeholder="John Doe"
+              />
+            </div>
           </div>
           <div>
             <label className="block text-sm font-semibold text-emerald-100/80 mb-2 uppercase tracking-wide">Email Address</label>
-            <input 
-              type="email" 
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
-              placeholder="you@example.com"
-            />
+            <div className="relative">
+              <Mail className="absolute left-4 top-3.5 w-5 h-5 text-emerald-500/50" />
+              <input 
+                type="email" 
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
+                placeholder="you@example.com"
+              />
+            </div>
           </div>
           <div>
             <label className="block text-sm font-semibold text-emerald-100/80 mb-2 uppercase tracking-wide">Password</label>
-            <input 
-              type="password" 
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
-              placeholder="••••••••"
-            />
+            <div className="relative">
+              <Lock className="absolute left-4 top-3.5 w-5 h-5 text-emerald-500/50" />
+              <input 
+                type="password" 
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg pl-12 pr-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
+                placeholder="••••••••"
+              />
+            </div>
           </div>
           <button 
             type="submit"

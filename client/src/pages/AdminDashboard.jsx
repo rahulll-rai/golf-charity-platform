@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
+import { Dices, Settings, FlaskConical, Rocket, Users, Handshake, Flag, Trophy, FileText, History, CheckCircle, Activity, DollarSign, List } from "lucide-react";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -138,22 +139,34 @@ const AdminDashboard = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           <div className="bg-[#011c16] p-6 rounded-2xl border border-emerald-500/20 shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all" />
-            <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest mb-2">Active Users</p>
+            <div className="flex items-center gap-3 mb-2">
+              <Users className="w-5 h-5 text-emerald-400" />
+              <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest">Active Users</p>
+            </div>
             <p className="text-4xl font-black text-white">{reports.activeUsers}</p>
           </div>
           <div className="bg-[#011c16] p-6 rounded-2xl border border-emerald-500/20 shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all" />
-            <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest mb-2">Total Charity</p>
+            <div className="flex items-center gap-3 mb-2">
+              <DollarSign className="w-5 h-5 text-green-400" />
+              <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest">Total Charity</p>
+            </div>
             <p className="text-4xl font-black text-green-400">${reports.totalCharityContributions}</p>
           </div>
           <div className="bg-[#011c16] p-6 rounded-2xl border border-emerald-500/20 shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all" />
-            <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest mb-2">Prizes Awarded</p>
+            <div className="flex items-center gap-3 mb-2">
+              <Trophy className="w-5 h-5 text-amber-400" />
+              <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest">Prizes Awarded</p>
+            </div>
             <p className="text-4xl font-black text-amber-400">${reports.totalPrizePoolAwarded.toFixed(2)}</p>
           </div>
           <div className="bg-[#011c16] p-6 rounded-2xl border border-emerald-500/20 shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all" />
-            <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest mb-2">Total Draws</p>
+            <div className="flex items-center gap-3 mb-2">
+              <Activity className="w-5 h-5 text-emerald-400" />
+              <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest">Total Draws</p>
+            </div>
             <p className="text-4xl font-black text-white">{reports.totalDraws}</p>
           </div>
         </div>
@@ -166,7 +179,7 @@ const AdminDashboard = () => {
           <div className="absolute -top-20 -right-20 w-64 h-64 bg-amber-500/5 rounded-full blur-[80px] pointer-events-none" />
           
           <h2 className="text-2xl font-black mb-8 text-white flex items-center gap-3">
-            <span className="text-3xl">🎰</span> Run Monthly Draw
+            <Dices className="w-8 h-8 text-amber-400" /> Run Monthly Draw
           </h2>
           
           <form onSubmit={handleRunDraw} className="space-y-6 relative z-10">
@@ -196,8 +209,8 @@ const AdminDashboard = () => {
                   value={drawType} onChange={(e) => setDrawType(e.target.value)}
                   className="w-full bg-[#022c22] border border-emerald-500/30 rounded-xl px-4 py-3 text-white text-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
                 >
-                  <option value="Random">🎲 Random</option>
-                  <option value="Algorithmic">⚙️ Algorithmic</option>
+                  <option value="Random">Random</option>
+                  <option value="Algorithmic">Algorithmic</option>
                 </select>
               </div>
               <div className="flex items-center gap-3 bg-[#022c22] border border-emerald-500/30 rounded-xl px-4 py-3">
@@ -210,14 +223,16 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <button type="submit" className={`w-full py-4 rounded-xl font-black text-xl transition-all transform hover:-translate-y-1 shadow-lg mt-4 ${isSimulation ? 'bg-amber-500 hover:bg-amber-400 text-emerald-950 shadow-[0_0_20px_rgba(251,191,36,0.4)]' : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)]'}`}>
-              {isSimulation ? '🧪 Run Simulation' : '🚀 Publish Official Draw'}
+            <button type="submit" className={`w-full py-4 rounded-xl font-black text-xl transition-all transform hover:-translate-y-1 shadow-lg mt-4 flex items-center justify-center gap-3 ${isSimulation ? 'bg-amber-500 hover:bg-amber-400 text-emerald-950 shadow-[0_0_20px_rgba(251,191,36,0.4)]' : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)]'}`}>
+              {isSimulation ? <><FlaskConical className="w-6 h-6" /> Run Simulation</> : <><Rocket className="w-6 h-6" /> Publish Official Draw</>}
             </button>
           </form>
 
           {drawResult && (
             <div className="mt-8 p-6 bg-[#022c22] rounded-2xl border border-emerald-500/30 shadow-inner">
-              <h3 className="font-bold mb-4 text-emerald-400 text-lg flex items-center gap-2">✓ Draw Executed</h3>
+              <h3 className="font-bold mb-4 text-emerald-400 text-lg flex items-center gap-2">
+                <CheckCircle className="w-5 h-5" /> Draw Executed
+              </h3>
               <p className="text-sm mb-6 text-emerald-100/70">Winning Numbers: <span className="font-mono bg-emerald-900/50 text-amber-400 font-bold px-3 py-1.5 rounded-lg border border-emerald-500/20 ml-2 tracking-widest">{drawResult.draw.winningNumbers.join(' - ')}</span></p>
               
               <h4 className="font-bold text-xs text-emerald-200/60 uppercase tracking-widest mb-3">Winners Detected ({drawResult.winners.length})</h4>
@@ -237,7 +252,7 @@ const AdminDashboard = () => {
         {/* Users Section */}
         <div className="lg:col-span-7 bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/20 shadow-2xl flex flex-col">
           <h2 className="text-2xl font-black mb-6 text-white flex items-center gap-3">
-            <span className="text-emerald-500">👥</span> Manage Users
+            <Users className="w-8 h-8 text-emerald-500" /> Manage Users
           </h2>
           <div className="flex-1 overflow-auto rounded-xl border border-white/5 bg-[#022c22]">
             <table className="w-full text-left text-sm border-collapse">
@@ -274,7 +289,7 @@ const AdminDashboard = () => {
         {/* Charities Section */}
         <div className="bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/20 shadow-2xl flex flex-col h-[500px]">
           <h2 className="text-2xl font-black mb-6 text-white flex items-center gap-3">
-            <span className="text-amber-400">🤝</span> Manage Charities
+            <Handshake className="w-8 h-8 text-amber-400" /> Manage Charities
           </h2>
           <div className="flex-1 overflow-auto rounded-xl border border-white/5 bg-[#022c22] custom-scrollbar">
             <table className="w-full text-left text-sm border-collapse">
@@ -303,7 +318,7 @@ const AdminDashboard = () => {
         {/* Scores Section */}
         <div className="bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/20 shadow-2xl flex flex-col h-[500px]">
           <h2 className="text-2xl font-black mb-6 text-white flex items-center gap-3">
-            <span className="text-emerald-400">⛳</span> Score Activity
+            <Flag className="w-8 h-8 text-emerald-400" /> Score Activity
           </h2>
           <div className="flex-1 overflow-auto rounded-xl border border-white/5 bg-[#022c22] custom-scrollbar">
             <table className="w-full text-left text-sm border-collapse">
@@ -337,7 +352,7 @@ const AdminDashboard = () => {
         <div className="absolute top-0 right-1/4 w-[800px] h-full bg-emerald-900/5 rounded-full blur-[100px] pointer-events-none" />
         
         <h2 className="text-2xl font-black mb-8 text-white flex items-center gap-3 relative z-10">
-          <span className="text-amber-400">🏆</span> Verify Winners & Payouts
+          <Trophy className="w-8 h-8 text-amber-400" /> Verify Winners & Payouts
         </h2>
         
         <div className="overflow-x-auto rounded-xl border border-emerald-500/20 bg-[#022c22] relative z-10">
@@ -364,7 +379,7 @@ const AdminDashboard = () => {
                     <div className="flex flex-col gap-2 items-start">
                       {w.verificationProof ? (
                         <a href={w.verificationProof} target="_blank" rel="noreferrer" className="text-amber-400 hover:text-amber-300 hover:underline text-xs font-bold flex items-center gap-1">
-                          📄 View Proof
+                          <FileText className="w-3 h-3" /> View Proof
                         </a>
                       ) : (
                         <span className="text-xs font-medium text-emerald-100/30">No Proof Submitted</span>
@@ -406,7 +421,7 @@ const AdminDashboard = () => {
       {/* Draw History Section */}
       <div className="bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/30 shadow-2xl mt-8 relative overflow-hidden">
         <h2 className="text-2xl font-black mb-8 text-white flex items-center gap-3 relative z-10">
-          <span className="text-emerald-400">📜</span> Draw History
+          <History className="w-8 h-8 text-emerald-400" /> Draw History
         </h2>
         
         <div className="overflow-x-auto rounded-xl border border-emerald-500/20 bg-[#022c22] relative z-10 max-h-[400px] overflow-y-auto custom-scrollbar">

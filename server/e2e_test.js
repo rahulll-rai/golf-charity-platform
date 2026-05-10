@@ -1,6 +1,6 @@
 
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://server-nine-plum-12.vercel.app/api';
 let userToken = '';
 let adminToken = '';
 let charityId = '';
@@ -40,7 +40,14 @@ const runTests = async () => {
       });
       const regData = await regRes.json();
       if (!regRes.ok) throw new Error(regData.message || 'Registration failed');
-      userToken = regData.token;
+      
+      const loginRes2 = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: "pr9068124@gmail.com", password: "password123" })
+      });
+      const loginData2 = await loginRes2.json();
+      userToken = loginData2.token;
       console.log(`✅ Success: User Registered. Token received.`);
     } catch (e) {
       console.log(`⚠️ User might exist. Logging in instead...`);
@@ -88,7 +95,7 @@ const runTests = async () => {
 
     const simRes = await fetch(`${API_URL}/admin/draws`, {
       method: 'POST', headers, body: JSON.stringify({
-        month: new Date().toLocaleString('default', { month: 'long' }),
+        month: new Date().getMonth() + 1,
         year: new Date().getFullYear(),
         isSimulation: true,
         drawType: "Random"
@@ -104,7 +111,7 @@ const runTests = async () => {
     console.log("\n➔ Testing: Admin Panel - Publish Official Draw...");
     const pubRes = await fetch(`${API_URL}/admin/draws`, {
       method: 'POST', headers, body: JSON.stringify({
-        month: new Date().toLocaleString('default', { month: 'long' }),
+        month: new Date().getMonth() + 1,
         year: new Date().getFullYear(),
         isSimulation: false,
         drawType: "Random"

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../services/api";
 import { motion } from "framer-motion";
+import { UserCircle, CreditCard, Heart, Trophy, Flag, Plus, Edit2, Trash2, Upload } from "lucide-react";
 
 const Dashboard = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -99,9 +100,12 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold mb-2">Welcome, {user?.name}</h1>
-        <p className="text-slate-400">Manage your subscription, scores, and charity impact.</p>
+      <div className="mb-10 flex items-center gap-4">
+        <UserCircle className="w-12 h-12 text-emerald-400" />
+        <div>
+          <h1 className="text-3xl font-bold mb-1 text-white">Welcome, {user?.name}</h1>
+          <p className="text-emerald-100/60">Manage your subscription, scores, and charity impact.</p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -111,9 +115,11 @@ const Dashboard = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass p-6 rounded-2xl"
+            className="glass p-6 rounded-2xl border border-white/5 shadow-xl"
           >
-            <h2 className="text-xl font-semibold mb-4 border-b border-white/10 pb-2">Subscription Status</h2>
+            <h2 className="text-xl font-bold mb-4 border-b border-white/10 pb-2 text-white flex items-center gap-2">
+              <CreditCard className="w-5 h-5 text-emerald-400" /> Subscription
+            </h2>
             <div className="flex items-center justify-between mb-6">
               <span className="text-slate-300">Current Plan</span>
               <span className={`px-3 py-1 rounded-full text-xs font-bold ${user?.subscriptionStatus === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
@@ -143,9 +149,11 @@ const Dashboard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="glass p-6 rounded-2xl"
+            className="glass p-6 rounded-2xl border border-white/5 shadow-xl"
           >
-            <h2 className="text-xl font-semibold mb-4 border-b border-white/10 pb-2">Your Charity</h2>
+            <h2 className="text-xl font-bold mb-4 border-b border-white/10 pb-2 text-white flex items-center gap-2">
+              <Heart className="w-5 h-5 text-amber-400" /> Your Charity
+            </h2>
             {user?.selectedCharity ? (
               <div>
                 <p className="font-medium text-purple-400">{user.selectedCharity.name}</p>
@@ -163,9 +171,11 @@ const Dashboard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="glass p-6 rounded-2xl"
+            className="glass p-6 rounded-2xl border border-white/5 shadow-xl"
           >
-            <h2 className="text-xl font-semibold mb-4 border-b border-white/10 pb-2">Your Winnings</h2>
+            <h2 className="text-xl font-bold mb-4 border-b border-white/10 pb-2 text-white flex items-center gap-2">
+              <Trophy className="w-5 h-5 text-amber-400" /> Your Winnings
+            </h2>
             <div className="space-y-4">
               {winnings.length === 0 ? (
                 <p className="text-slate-400 text-sm">You haven't won any draws yet. Keep entering scores!</p>
@@ -180,8 +190,8 @@ const Dashboard = () => {
                         {w.verificationStatus}
                       </span>
                       {w.verificationStatus === 'Pending' && !w.verificationProof && (
-                        <button onClick={() => handleUploadProof(w._id)} className="text-xs bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 rounded">
-                          Upload Proof
+                        <button onClick={() => handleUploadProof(w._id)} className="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg flex items-center gap-1 transition-all">
+                          <Upload className="w-3 h-3" /> Upload Proof
                         </button>
                       )}
                     </div>
@@ -199,11 +209,13 @@ const Dashboard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="glass p-6 md:p-8 rounded-2xl"
+            className="glass p-6 md:p-8 rounded-3xl border border-white/5 shadow-2xl"
           >
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold">Your Recent Scores</h2>
-              <span className="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full">Latest 5 kept</span>
+              <h2 className="text-2xl font-black text-white flex items-center gap-2">
+                <Flag className="w-6 h-6 text-emerald-400" /> Recent Scores
+              </h2>
+              <span className="text-xs bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 px-3 py-1 rounded-full font-bold">Latest 5 kept</span>
             </div>
 
             {/* Add Score Form */}
@@ -219,9 +231,9 @@ const Dashboard = () => {
               />
               <button 
                 type="submit"
-                className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-2 rounded-lg transition-colors"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-2 rounded-lg transition-all shadow-lg hover:shadow-emerald-500/20 flex items-center gap-2"
               >
-                Add Score
+                <Plus className="w-5 h-5" /> Add Score
               </button>
             </form>
 

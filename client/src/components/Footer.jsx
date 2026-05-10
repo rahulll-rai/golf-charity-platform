@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Share2, Globe, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -29,9 +30,15 @@ const Footer = () => {
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0 text-emerald-100/50">
             {/* Social Icons Placeholders */}
-            <div className="w-8 h-8 rounded-full bg-emerald-500/10 hover:bg-amber-500/20 hover:text-amber-400 flex items-center justify-center cursor-pointer transition-colors">X</div>
-            <div className="w-8 h-8 rounded-full bg-emerald-500/10 hover:bg-amber-500/20 hover:text-amber-400 flex items-center justify-center cursor-pointer transition-colors">IN</div>
-            <div className="w-8 h-8 rounded-full bg-emerald-500/10 hover:bg-amber-500/20 hover:text-amber-400 flex items-center justify-center cursor-pointer transition-colors">FB</div>
+            <div className="w-8 h-8 rounded-full bg-emerald-500/10 hover:bg-amber-500/20 hover:text-amber-400 flex items-center justify-center cursor-pointer transition-colors">
+              <Share2 className="w-4 h-4" />
+            </div>
+            <div className="w-8 h-8 rounded-full bg-emerald-500/10 hover:bg-amber-500/20 hover:text-amber-400 flex items-center justify-center cursor-pointer transition-colors">
+              <Globe className="w-4 h-4" />
+            </div>
+            <div className="w-8 h-8 rounded-full bg-emerald-500/10 hover:bg-amber-500/20 hover:text-amber-400 flex items-center justify-center cursor-pointer transition-colors">
+              <MessageCircle className="w-4 h-4" />
+            </div>
           </div>
         </div>
       </div>

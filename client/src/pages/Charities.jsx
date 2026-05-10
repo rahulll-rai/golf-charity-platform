@@ -3,6 +3,7 @@ import api from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Search, Star, ArrowRight } from "lucide-react";
 
 const Charities = () => {
   const [charities, setCharities] = useState([]);
@@ -80,7 +81,9 @@ const Charities = () => {
             className="max-w-xl mx-auto"
           >
             <div className="relative">
-              <span className="absolute inset-y-0 left-4 flex items-center text-emerald-500 text-xl">🔍</span>
+              <span className="absolute inset-y-0 left-4 flex items-center text-emerald-500">
+                <Search className="w-6 h-6" />
+              </span>
               <input 
                 type="text" 
                 placeholder="Search charities..." 
@@ -155,10 +158,10 @@ const Charities = () => {
 
                       <button 
                         onClick={() => handleSelectCharity(charity._id)}
-                        className={`w-full py-4 rounded-xl font-bold text-lg transition-all shadow-lg ${user?.selectedCharity?._id === charity._id ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30 cursor-default' : 'bg-emerald-600 hover:bg-emerald-500 text-white hover:shadow-emerald-500/30 transform hover:-translate-y-1'}`}
+                        className={`w-full py-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center gap-2 ${user?.selectedCharity?._id === charity._id ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30 cursor-default' : 'bg-emerald-600 hover:bg-emerald-500 text-white hover:shadow-emerald-500/30 transform hover:-translate-y-1'}`}
                         disabled={user?.selectedCharity?._id === charity._id}
                       >
-                        {user?.selectedCharity?._id === charity._id ? '★ Currently Supporting' : 'Support this Charity'}
+                        {user?.selectedCharity?._id === charity._id ? <><Star className="w-5 h-5 fill-current" /> Currently Supporting</> : 'Support this Charity'}
                       </button>
                     </div>
                   </div>

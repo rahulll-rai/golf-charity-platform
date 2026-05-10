@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import api from "../services/api";
+import { BookOpen, Activity, Target, Handshake, Check, Star, Flag, Trophy, Heart } from "lucide-react";
 
 const Home = () => {
   const [featuredCharity, setFeaturedCharity] = useState(null);
@@ -79,7 +80,7 @@ const Home = () => {
               href="#how-to-play" 
               className="px-8 py-4 glass glass-hover text-white rounded-full font-bold text-xl transition-all w-full sm:w-auto flex justify-center items-center gap-2"
             >
-              📖 How to Play
+              <BookOpen className="w-5 h-5" /> How to Play
             </a>
             <Link 
               to="/charities" 
@@ -104,9 +105,9 @@ const Home = () => {
             <div className="hidden md:block absolute top-1/2 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-emerald-500/0 via-emerald-500/50 to-emerald-500/0 -z-10" />
 
             {[
-              { step: "1", title: "Play & Track", desc: "Play your regular rounds of golf. Log your scores (between 1-45) on our platform after each game.", icon: "🏌️‍♂️" },
-              { step: "2", title: "Match & Win", desc: "Every month, an algorithm draws 5 numbers. Match 3, 4, or 5 of your recent scores to win premium prizes.", icon: "🎯" },
-              { step: "3", title: "Give Back", desc: "A significant portion of your subscription fee is directly donated to the charity of your choice.", icon: "🤝" }
+              { step: "1", title: "Play & Track", desc: "Play your regular rounds of golf. Log your scores (between 1-45) on our platform after each game.", icon: <Activity className="w-10 h-10" /> },
+              { step: "2", title: "Match & Win", desc: "Every month, an algorithm draws 5 numbers. Match 3, 4, or 5 of your recent scores to win premium prizes.", icon: <Target className="w-10 h-10" /> },
+              { step: "3", title: "Give Back", desc: "A significant portion of your subscription fee is directly donated to the charity of your choice.", icon: <Handshake className="w-10 h-10" /> }
             ].map((item, idx) => (
               <motion.div 
                 key={idx}
@@ -150,7 +151,9 @@ const Home = () => {
                     "Fully automated, untamperable, and transparently verified."
                   ].map((point, idx) => (
                     <div key={idx} className="flex items-start gap-4 bg-[#011c16]/50 p-4 rounded-xl border border-emerald-500/10">
-                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-1">✓</div>
+                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-1">
+                        <Check className="w-5 h-5" />
+                      </div>
                       <span className="text-lg text-emerald-100/90">{point}</span>
                     </div>
                   ))}
@@ -179,7 +182,7 @@ const Home = () => {
               </div>
               <div className="md:w-1/2">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-bold text-sm mb-6">
-                  🌟 Featured Charity of the Month
+                  <Star className="w-4 h-4 fill-current" /> Featured Charity of the Month
                 </div>
                 <h2 className="text-4xl md:text-6xl font-extrabold mb-6 text-white">{featuredCharity.name}</h2>
                 <p className="text-emerald-100/70 text-xl mb-10 leading-relaxed">{featuredCharity.description}</p>
@@ -233,9 +236,9 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "Track Scores", desc: "Log your 1-45 scores. We keep your latest 5 rounds to determine your draw entries.", icon: "⛳" },
-              { title: "Monthly Draws", desc: "Win premium prizes. Match 3, 4, or 5 of your recent scores with our monthly draw.", icon: "🏆" },
-              { title: "Support Charities", desc: "A portion of your subscription goes directly to the charity of your choice.", icon: "❤️" }
+              { title: "Track Scores", desc: "Log your 1-45 scores. We keep your latest 5 rounds to determine your draw entries.", icon: <Flag className="w-12 h-12" /> },
+              { title: "Monthly Draws", desc: "Win premium prizes. Match 3, 4, or 5 of your recent scores with our monthly draw.", icon: <Trophy className="w-12 h-12" /> },
+              { title: "Support Charities", desc: "A portion of your subscription goes directly to the charity of your choice.", icon: <Heart className="w-12 h-12" /> }
             ].map((feature, idx) => (
               <motion.div 
                 key={idx}
