@@ -163,4 +163,27 @@ const getMySubscription = async (req, res) => {
     }
 }
 
-module.exports = { subscribe, getMySubscription, createCheckoutSession, handleStripeWebhook };
+// @desc    Cancel subscription
+// @route   POST /api/subscriptions/cancel
+// @access  Private
+const cancelSubscription = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        user.subscriptionStatus = "inactive";
+        await user.save();
+
+        await Subscription.updateMany({ user: req.user._id, status: 'active' }, { status: 'cancelled' });
+
+        sendEmail(
+            user.email,
+            "Subscription Cancelled",
+            `Hi ${user.name},\n\nYour subscription has been cancelled as requested. You can re-activate at any time from your dashboard.`
+        );
+
+        res.status(200).json({ message: "Subscription cancelled successfully" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+module.exports = { subscribe, getMySubscription, createCheckoutSession, handleStripeWebhook, cancelSubscription };
