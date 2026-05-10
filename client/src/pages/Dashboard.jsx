@@ -73,6 +73,19 @@ const Dashboard = () => {
     }
   };
 
+  const handleCancelSubscription = async () => {
+    if (!window.confirm("Are you sure you want to cancel your subscription? You will lose access to the platform features.")) return;
+    try {
+      await api.post("/subscriptions/cancel");
+      const res = await api.get("/users/me");
+      setUser(res.data);
+      alert("Subscription cancelled successfully.");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to cancel subscription.");
+    }
+  };
+
   const handleSubscribe = async (planType) => {
     try {
       const res = await api.post("/subscriptions/create-checkout-session", { planType });
@@ -166,9 +179,15 @@ const Dashboard = () => {
                 <p className="text-[10px] text-center text-slate-500 uppercase font-black tracking-widest">Secure Stripe Payouts</p>
               </div>
             ) : (
-              <button className="w-full bg-white/5 text-slate-300 font-bold py-4 rounded-2xl border border-white/10 hover:bg-white/10 transition-all">
-                Manage Billing
-              </button>
+              <div className="space-y-4">
+                <button 
+                  onClick={handleCancelSubscription}
+                  className="w-full bg-white/5 text-red-400 font-bold py-4 rounded-2xl border border-red-500/10 hover:bg-red-500/10 transition-all"
+                >
+                  Cancel Subscription
+                </button>
+                <p className="text-[10px] text-center text-slate-500 uppercase font-black tracking-widest">Managed via Stripe</p>
+              </div>
             )}
           </motion.div>
 
