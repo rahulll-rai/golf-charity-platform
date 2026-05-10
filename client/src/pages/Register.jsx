@@ -24,64 +24,66 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 bg-[#022c22]">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="glass p-10 rounded-2xl w-full max-w-md"
+        className="glass p-10 rounded-2xl w-full max-w-md border border-emerald-500/20 shadow-2xl relative overflow-hidden"
       >
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2">Create Account</h2>
-          <p className="text-slate-400">Join the premium golf community</p>
+        <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-emerald-500/10 rounded-full blur-[50px] pointer-events-none" />
+
+        <div className="text-center mb-8 relative z-10">
+          <h2 className="text-3xl font-bold mb-2 text-white">Create Account</h2>
+          <p className="text-emerald-200/60">Join the premium golf community</p>
         </div>
 
-        {error && <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-lg mb-6 text-sm">{error}</div>}
+        {error && <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-lg mb-6 text-sm relative z-10">{error}</div>}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
+            <label className="block text-sm font-semibold text-emerald-100/80 mb-2 uppercase tracking-wide">Full Name</label>
             <input 
               type="text" 
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+              className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
               placeholder="John Doe"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+            <label className="block text-sm font-semibold text-emerald-100/80 mb-2 uppercase tracking-wide">Email Address</label>
             <input 
               type="email" 
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+              className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
               placeholder="you@example.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
+            <label className="block text-sm font-semibold text-emerald-100/80 mb-2 uppercase tracking-wide">Password</label>
             <input 
               type="password" 
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+              className="w-full bg-[#011c16]/80 border border-emerald-500/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
               placeholder="••••••••"
             />
           </div>
           <button 
             type="submit"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition-all shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)]"
+            className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-lg transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] transform hover:-translate-y-0.5"
           >
             Create Account
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-slate-400">
-          Already have an account? <Link to="/login" className="text-purple-400 hover:text-purple-300 transition-colors">Sign in</Link>
+        <div className="mt-6 text-center text-sm text-emerald-200/60 relative z-10">
+          Already have an account? <Link to="/login" className="text-amber-400 hover:text-amber-300 font-bold transition-colors">Sign in</Link>
         </div>
       </motion.div>
     </div>
