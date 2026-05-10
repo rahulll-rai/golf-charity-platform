@@ -24,11 +24,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full overflow-hidden bg-[#022c22] text-slate-100">
+    <div className="flex flex-col w-full overflow-hidden bg-transparent text-slate-100">
       {/* Hero Section */}
       <section className="relative min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20">
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/30 via-[#022c22] to-[#022c22]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/40 via-transparent to-transparent" />
           {/* Decorative glowing orbs - Green & Gold */}
           <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-600/20 rounded-full blur-[128px]" />
           <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-[128px]" />
@@ -227,7 +227,7 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-[#022c22] relative z-10">
+      <section className="py-24 bg-transparent relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Elevate Your Game</h2>
