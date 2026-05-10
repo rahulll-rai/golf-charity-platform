@@ -7,6 +7,7 @@ const AdminDashboard = () => {
   const [scores, setScores] = useState([]);
   const [winners, setWinners] = useState([]);
   const [reports, setReports] = useState(null);
+  const [draws, setDraws] = useState([]);
   
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
@@ -20,6 +21,7 @@ const AdminDashboard = () => {
     fetchScores();
     fetchWinners();
     fetchReports();
+    fetchDraws();
   }, []);
 
   const fetchUsers = async () => {
@@ -62,6 +64,15 @@ const AdminDashboard = () => {
     try {
       const res = await api.get("/admin/reports");
       setReports(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchDraws = async () => {
+    try {
+      const res = await api.get("/admin/draws");
+      setDraws(res.data);
     } catch (error) {
       console.error(error);
     }
@@ -386,6 +397,43 @@ const AdminDashboard = () => {
               ))}
               {winners.length === 0 && (
                 <tr><td colSpan="5" className="py-12 text-center text-emerald-200/40 font-medium">No winners waiting for verification.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Draw History Section */}
+      <div className="bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/30 shadow-2xl mt-8 relative overflow-hidden">
+        <h2 className="text-2xl font-black mb-8 text-white flex items-center gap-3 relative z-10">
+          <span className="text-emerald-400">📜</span> Draw History
+        </h2>
+        
+        <div className="overflow-x-auto rounded-xl border border-emerald-500/20 bg-[#022c22] relative z-10 max-h-[400px] overflow-y-auto custom-scrollbar">
+          <table className="w-full text-left text-sm border-collapse">
+            <thead className="bg-[#011c16] border-b border-emerald-500/20 sticky top-0">
+              <tr className="text-emerald-200/60 text-xs uppercase tracking-widest">
+                <th className="py-5 px-6 font-semibold">Month/Year</th>
+                <th className="py-5 px-6 font-semibold">Winning Numbers</th>
+                <th className="py-5 px-6 font-semibold">Total Pool</th>
+                <th className="py-5 px-6 font-semibold">Rollover</th>
+                <th className="py-5 px-6 font-semibold">Type</th>
+                <th className="py-5 px-6 font-semibold">Date</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-emerald-500/10">
+              {draws.map(d => (
+                <tr key={d._id} className="hover:bg-emerald-900/20 transition-colors">
+                  <td className="py-5 px-6 font-bold text-white">{d.month}/{d.year}</td>
+                  <td className="py-5 px-6 font-mono text-amber-400 font-bold tracking-widest">{d.winningNumbers?.join(' - ')}</td>
+                  <td className="py-5 px-6 text-emerald-400 font-bold">\${d.totalPool?.toFixed(2)}</td>
+                  <td className="py-5 px-6 text-emerald-400 font-bold">\${d.jackpotRollover?.toFixed(2)}</td>
+                  <td className="py-5 px-6"><span className="bg-emerald-500/10 text-emerald-300 px-2 py-1 rounded text-xs">{d.drawType || 'Random'}</span></td>
+                  <td className="py-5 px-6 text-emerald-100/50 text-xs">{new Date(d.createdAt).toLocaleDateString()}</td>
+                </tr>
+              ))}
+              {draws.length === 0 && (
+                <tr><td colSpan="6" className="py-12 text-center text-emerald-200/40 font-medium">No previous draws found.</td></tr>
               )}
             </tbody>
           </table>

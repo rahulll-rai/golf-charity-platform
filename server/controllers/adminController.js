@@ -244,4 +244,16 @@ const getReports = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, runDraw, getAllScores, adminDeleteScore, createCharity, adminDeleteCharity, verifyWinner, getWinners, getReports };
+// @desc    Get all draws history
+// @route   GET /api/admin/draws
+// @access  Private/Admin
+const getDraws = async (req, res) => {
+  try {
+    const draws = await Draw.find({}).sort({ createdAt: -1 });
+    res.status(200).json(draws);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { getUsers, runDraw, getAllScores, adminDeleteScore, createCharity, adminDeleteCharity, verifyWinner, getWinners, getReports, getDraws };

@@ -1,7 +1,7 @@
 const Subscription = require("../models/Subscription");
 const User = require("../models/User");
 const { sendEmail } = require("../utils/emailService");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY || "sk_test_mock123");
 
 // @desc    Subscribe to a plan (Mocked)
 // @route   POST /api/subscriptions/subscribe
