@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+dotenv.config();
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const authRoutes = require("./routes/authRoutes");
@@ -11,9 +12,6 @@ const subscriptionRoutes = require("./routes/subscriptionRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const winnerRoutes = require("./routes/winnerRoutes");
 const connectDB = require("./config/db");
-
-dotenv.config();
-
 connectDB();
 
 const app = express();
