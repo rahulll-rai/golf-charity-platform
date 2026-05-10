@@ -26,22 +26,22 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
-            <Link to="/" onClick={closeMenu} className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+            <Link to="/" onClick={closeMenu} className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-amber-400">
               GolfCharity
             </Link>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              <Link to="/charities" className="hover:text-purple-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+              <Link to="/charities" className="hover:text-amber-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Charities
               </Link>
               {user ? (
                 <>
-                  <Link to="/dashboard" className="hover:text-purple-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  <Link to="/dashboard" className="hover:text-amber-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                     Dashboard
                   </Link>
                   {user.role === "admin" && (
-                    <Link to="/admin" className="hover:text-purple-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                    <Link to="/admin" className="hover:text-amber-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                       Admin
                     </Link>
                   )}
@@ -54,12 +54,12 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="hover:text-purple-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  <Link to="/login" className="hover:text-amber-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                     Login
                   </Link>
                   <Link
                     to="/register"
-                    className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-medium transition-all shadow-[0_0_15px_rgba(139,92,246,0.5)]"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-full text-sm font-medium transition-all shadow-[0_0_15px_rgba(16,185,129,0.5)]"
                   >
                     Get Started
                   </Link>
@@ -93,16 +93,16 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden glass border-t border-white/10" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
-            <Link to="/charities" onClick={closeMenu} className="text-white hover:text-purple-400 block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
+            <Link to="/charities" onClick={closeMenu} className="text-white hover:text-amber-400 block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
               Charities
             </Link>
             {user ? (
               <>
-                <Link to="/dashboard" onClick={closeMenu} className="text-white hover:text-purple-400 block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
+                <Link to="/dashboard" onClick={closeMenu} className="text-white hover:text-amber-400 block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
                   Dashboard
                 </Link>
                 {user.role === "admin" && (
-                  <Link to="/admin" onClick={closeMenu} className="text-white hover:text-purple-400 block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
+                  <Link to="/admin" onClick={closeMenu} className="text-white hover:text-amber-400 block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
                     Admin
                   </Link>
                 )}
@@ -115,13 +115,13 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/login" onClick={closeMenu} className="text-white hover:text-purple-400 block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
+                <Link to="/login" onClick={closeMenu} className="text-white hover:text-amber-400 block px-3 py-2 rounded-md text-base font-medium transition-colors w-full text-center">
                   Login
                 </Link>
                 <Link
                   to="/register"
                   onClick={closeMenu}
-                  className="mt-4 bg-purple-600 hover:bg-purple-700 text-white w-full max-w-[200px] text-center px-5 py-2 rounded-full text-base font-medium transition-all shadow-[0_0_15px_rgba(139,92,246,0.5)]"
+                  className="mt-4 bg-emerald-600 hover:bg-emerald-500 text-white w-full max-w-[200px] text-center px-5 py-2 rounded-full text-base font-medium transition-all shadow-[0_0_15px_rgba(16,185,129,0.5)]"
                 >
                   Get Started
                 </Link>
