@@ -291,15 +291,15 @@ const AdminDashboard = () => {
         {/* User Management */}
         <div className="lg:col-span-8">
           <div className="glass p-8 rounded-[2.5rem] border border-white/5 shadow-2xl h-full flex flex-col">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
               <h2 className="text-2xl font-black text-white flex items-center gap-3">
                 <Users className="w-8 h-8 text-blue-400" /> Registered Users
               </h2>
-              <div className="relative">
+              <div className="relative w-full sm:w-64">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                 <input 
                   type="text" placeholder="Search golfers..."
-                  className="bg-slate-900/50 border border-white/10 rounded-full pl-10 pr-6 py-2 text-sm text-white focus:outline-none focus:border-blue-500 transition-all w-64"
+                  className="bg-slate-900/50 border border-white/10 rounded-full pl-10 pr-6 py-2 text-sm text-white focus:outline-none focus:border-blue-500 transition-all w-full"
                 />
               </div>
             </div>
