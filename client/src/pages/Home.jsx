@@ -134,14 +134,14 @@ const Home = () => {
           <div className="glass rounded-[3rem] p-8 md:p-16 border border-emerald-500/20 shadow-2xl overflow-hidden relative">
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
             
-            <div className="flex flex-col lg:flex-row items-center gap-16">
-              <div className="lg:w-1/2">
+            <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+              <div>
                 <span className="text-amber-400 font-bold tracking-wider uppercase text-sm mb-4 block">Fairness Guaranteed</span>
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">The Game Algorithm Explained</h2>
-                <p className="text-emerald-100/80 text-xl mb-8 leading-relaxed">
+                <p className="text-emerald-100/80 text-xl mb-10 leading-relaxed">
                   We believe in total transparency. Our monthly draw algorithm is built on verifiable randomness to ensure every subscriber has a fair chance to win.
                 </p>
-                <ul className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
                   {[
                     "Takes your 5 most recent golf scores (1-45).",
                     "A secure random number generator selects 5 winning numbers monthly.",
@@ -149,36 +149,11 @@ const Home = () => {
                     "Match 4 for Tier 2, and all 5 for the Grand Prize.",
                     "Fully automated, untamperable, and transparently verified."
                   ].map((point, idx) => (
-                    <li key={idx} className="flex items-start gap-4">
+                    <div key={idx} className="flex items-start gap-4 bg-[#011c16]/50 p-4 rounded-xl border border-emerald-500/10">
                       <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-1">✓</div>
                       <span className="text-lg text-emerald-100/90">{point}</span>
-                    </li>
+                    </div>
                   ))}
-                </ul>
-              </div>
-              <div className="lg:w-1/2 w-full">
-                <div className="bg-[#011c16] rounded-2xl p-6 font-mono text-sm md:text-base text-emerald-400 border border-emerald-500/30 shadow-inner overflow-x-auto">
-                  <pre className="whitespace-pre-wrap">
-{`function executeMonthlyDraw(users) {
-  // Generate 5 unique random winning numbers between 1-45
-  const winningNumbers = generateRandomDraw(5, 1, 45);
-  
-  users.forEach(user => {
-    const userScores = user.latestFiveScores;
-    let matchCount = 0;
-    
-    userScores.forEach(score => {
-      if(winningNumbers.includes(score)) {
-        matchCount++;
-      }
-    });
-
-    if(matchCount >= 3) {
-      awardPrize(user, matchCount);
-    }
-  });
-}`}
-                  </pre>
                 </div>
               </div>
             </div>
