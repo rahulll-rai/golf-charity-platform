@@ -10,26 +10,35 @@ const AdminDashboard = () => {
   const [winners, setWinners] = useState([]);
   const [reports, setReports] = useState(null);
   const [draws, setDraws] = useState([]);
+  const [loading, setLoading] = useState(true);
   
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
-  const [drawType, setDrawType] = useState("Random");
-  const [isSimulation, setIsSimulation] = useState(false);
+  const [drawType, setDrawType] = useState("Algorithmic");
+  const [isSimulation, setIsSimulation] = useState(true);
   const [drawResult, setDrawResult] = useState(null);
 
   useEffect(() => {
-    fetchUsers();
-    fetchCharities();
-    fetchScores();
-    fetchWinners();
-    fetchReports();
-    fetchDraws();
+    loadAllData();
   }, []);
+
+  const loadAllData = async () => {
+    setLoading(true);
+    await Promise.all([
+      fetchUsers(),
+      fetchCharities(),
+      fetchScores(),
+      fetchWinners(),
+      fetchReports(),
+      fetchDraws()
+    ]);
+    setLoading(false);
+  };
 
   const fetchUsers = async () => {
     try {
       const res = await api.get("/admin/users");
-      setUsers(res.data);
+      setUsers(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error(error);
     }
@@ -38,7 +47,7 @@ const AdminDashboard = () => {
   const fetchCharities = async () => {
     try {
       const res = await api.get("/charities");
-      setCharities(res.data);
+      setCharities(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +56,7 @@ const AdminDashboard = () => {
   const fetchScores = async () => {
     try {
       const res = await api.get("/admin/scores");
-      setScores(res.data);
+      setScores(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +65,7 @@ const AdminDashboard = () => {
   const fetchWinners = async () => {
     try {
       const res = await api.get("/admin/winners");
-      setWinners(res.data);
+      setWinners(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error(error);
     }
@@ -74,27 +83,7 @@ const AdminDashboard = () => {
   const fetchDraws = async () => {
     try {
       const res = await api.get("/admin/draws");
-      setDraws(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleDeleteCharity = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this charity?")) return;
-    try {
-      await api.delete(`/admin/charities/${id}`);
-      fetchCharities();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleDeleteScore = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this score?")) return;
-    try {
-      await api.delete(`/admin/scores/${id}`);
-      fetchScores();
+      setDraws(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error(error);
     }
@@ -107,9 +96,7 @@ const AdminDashboard = () => {
       setDrawResult(res.data);
       if (!isSimulation) {
         alert("Draw published successfully!");
-        fetchWinners();
-        fetchReports();
-        fetchDraws();
+        loadAllData();
       }
     } catch (error) {
       console.error(error);
@@ -127,6 +114,32 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleDeleteScore = async (id) => {
+    if (!window.confirm("Delete this score?")) return;
+    try {
+      await api.delete(`/admin/scores/${id}`);
+      fetchScores();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDeleteCharity = async (id) => {
+    if (!window.confirm("Delete this charity?")) return;
+    try {
+      await api.delete(`/admin/charities/${id}`);
+      fetchCharities();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+    </div>
+  );
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 min-h-screen pb-24">
       {/* Header Section */}
@@ -142,7 +155,7 @@ const AdminDashboard = () => {
             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
             System Live
           </div>
-          <button onClick={() => window.location.reload()} className="p-2.5 glass hover:bg-white/10 rounded-full transition-all">
+          <button onClick={() => loadAllData()} className="p-2.5 glass hover:bg-white/10 rounded-full transition-all">
             <History className="w-5 h-5 text-slate-300" />
           </button>
         </div>
@@ -152,10 +165,10 @@ const AdminDashboard = () => {
       {reports && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {[
-            { label: "Active Users", value: reports.activeUsers, icon: Users, color: "text-blue-400", bg: "bg-blue-400/10" },
-            { label: "Total Contributions", value: `$${reports.totalCharityContributions.toLocaleString()}`, icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-400/10" },
-            { label: "Prizes Awarded", value: `$${reports.totalPrizePoolAwarded.toLocaleString(undefined, {minimumFractionDigits: 2})}`, icon: Trophy, color: "text-amber-400", bg: "bg-amber-400/10" },
-            { label: "Completed Draws", value: reports.totalDraws, icon: Activity, color: "text-purple-400", bg: "bg-purple-400/10" }
+            { label: "Active Users", value: reports.activeUsers || 0, icon: Users, color: "text-blue-400", bg: "bg-blue-400/10" },
+            { label: "Total Contributions", value: `$${(reports.totalCharityContributions || 0).toLocaleString()}`, icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-400/10" },
+            { label: "Prizes Awarded", value: `$${(reports.totalPrizePoolAwarded || 0).toLocaleString(undefined, {minimumFractionDigits: 2})}`, icon: Trophy, color: "text-amber-400", bg: "bg-amber-400/10" },
+            { label: "Completed Draws", value: reports.totalDraws || 0, icon: Activity, color: "text-purple-400", bg: "bg-purple-400/10" }
           ].map((stat, idx) => (
             <motion.div 
               key={idx}
@@ -247,7 +260,7 @@ const AdminDashboard = () => {
                       <CheckCircle className="w-5 h-5" /> Draw Sequence Generated
                     </h3>
                     <div className="flex flex-wrap gap-2 mb-6">
-                      {drawResult.draw.winningNumbers.map((num, i) => (
+                      {(drawResult.draw?.winningNumbers || []).map((num, i) => (
                         <div key={i} className="w-10 h-10 rounded-xl bg-slate-900 border border-emerald-500/30 flex items-center justify-center text-amber-400 font-black">
                           {num}
                         </div>
@@ -255,7 +268,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="space-y-3">
                       <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Winners List</p>
-                      {drawResult.winners.length > 0 ? (
+                      {(drawResult.winners || []).length > 0 ? (
                         <div className="max-h-40 overflow-y-auto custom-scrollbar space-y-2">
                           {drawResult.winners.map((w, i) => (
                             <div key={i} className="flex justify-between items-center bg-slate-950/40 p-3 rounded-xl border border-white/5">
@@ -298,38 +311,27 @@ const AdminDashboard = () => {
                     <th className="px-6 py-4">Identity</th>
                     <th className="px-6 py-4 text-center">Status</th>
                     <th className="px-6 py-4">Privileges</th>
-                    <th className="px-6 py-4 text-right">Metrics</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-white/5">
                   {users.map(u => (
-                    <tr key={u._id} className="admin-table-row group">
+                    <tr key={u._id} className="admin-table-row">
                       <td className="admin-table-cell">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center font-bold text-blue-400">
-                            {u.name.charAt(0)}
-                          </div>
+                          <Users className="w-5 h-5 text-emerald-400" />
                           <div>
-                            <p className="font-black text-white group-hover:text-blue-400 transition-colors">{u.name}</p>
-                            <p className="text-[10px] font-bold text-slate-500">{u.email}</p>
+                            <p className="font-black text-white">{u.name}</p>
+                            <p className="text-[10px] text-slate-500">{u.email}</p>
                           </div>
                         </div>
                       </td>
                       <td className="admin-table-cell text-center">
-                        <span className={`px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase border ${u.subscriptionStatus === 'active' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-slate-800 text-slate-500 border-slate-700'}`}>
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${u.subscriptionStatus === 'active' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
                           {u.subscriptionStatus}
                         </span>
                       </td>
                       <td className="admin-table-cell">
-                        <div className="flex items-center gap-2">
-                          <Settings className="w-3 h-3 text-slate-500" />
-                          <span className="text-xs font-bold text-slate-400">{u.role}</span>
-                        </div>
-                      </td>
-                      <td className="admin-table-cell text-right">
-                        <button className="text-slate-600 hover:text-white p-2">
-                          <ChevronRight className="w-5 h-5" />
-                        </button>
+                        <span className="text-xs font-bold text-slate-300">{u.role}</span>
                       </td>
                     </tr>
                   ))}
@@ -338,23 +340,20 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-
       </div>
 
-      {/* Secondary Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-        
-        {/* Charities */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        {/* Charities Management */}
         <div className="glass p-8 rounded-[2.5rem] border border-white/5 shadow-2xl h-[600px] flex flex-col">
           <h2 className="text-2xl font-black mb-8 text-white flex items-center gap-3">
-            <Handshake className="w-8 h-8 text-amber-500" /> Charity Management
+            <Handshake className="w-8 h-8 text-amber-500" /> Partner Charities
           </h2>
           <div className="flex-1 overflow-auto custom-scrollbar rounded-3xl pr-2">
             <table className="admin-table">
               <thead>
                 <tr className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] text-left">
-                  <th className="px-6 py-4">Organization</th>
-                  <th className="px-6 py-4">Impact</th>
+                  <th className="px-6 py-4">Charity</th>
+                  <th className="px-6 py-4">Donations</th>
                   <th className="px-6 py-4 text-right">Action</th>
                 </tr>
               </thead>
@@ -362,16 +361,15 @@ const AdminDashboard = () => {
                 {charities.map(c => (
                   <tr key={c._id} className="admin-table-row">
                     <td className="admin-table-cell">
-                      <div className="flex items-center gap-3">
-                        <img src={c.image} alt="" className="w-12 h-12 rounded-xl object-cover border border-white/10" />
-                        <span className="font-black text-white">{c.name}</span>
-                      </div>
+                      <p className="font-black text-white">{c.name}</p>
                     </td>
                     <td className="admin-table-cell">
-                      <span className="text-emerald-400 font-black tracking-wider text-lg">${c.totalDonations.toLocaleString()}</span>
+                      <p className="font-black text-white">${(c.totalDonations || 0).toLocaleString()}</p>
                     </td>
                     <td className="admin-table-cell text-right">
-                      <button onClick={() => handleDeleteCharity(c._id)} className="px-4 py-2 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/20 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Remove</button>
+                      <button onClick={() => handleDeleteCharity(c._id)} className="text-red-400 hover:text-red-300 p-2">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -450,22 +448,17 @@ const AdminDashboard = () => {
                     <p className="text-[10px] text-slate-500">{w.user?.email}</p>
                   </td>
                   <td className="px-6 py-6">
-                    <span className="text-xs font-bold text-slate-400">{w.draw?.month}/{w.draw?.year}</span>
+                    <p className="text-xs font-black text-slate-300 uppercase tracking-widest">{w.draw?.month}/{w.draw?.year}</p>
                   </td>
                   <td className="px-6 py-6">
-                    <p className="font-black text-amber-500">{w.prize}</p>
-                    <p className="text-xs font-bold text-emerald-500">${w.prizeAmount?.toFixed(2)}</p>
+                    <p className="font-black text-emerald-400 text-lg">${(w.prizeAmount || 0).toFixed(2)}</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{w.prize}</p>
                   </td>
-                  <td className="px-6 py-6 text-center">
+                  <td className="px-6 py-6">
                     <div className="flex flex-col items-center gap-2">
-                      <div className="flex gap-2">
-                        <span className={`px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-widest border ${w.verificationStatus === 'Verified' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : w.verificationStatus === 'Rejected' ? 'bg-red-500/10 text-red-500 border-red-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'}`}>
-                          {w.verificationStatus}
-                        </span>
-                        <span className={`px-2 py-1 rounded-md text-[9px] font-black uppercase tracking-widest border ${w.payoutStatus === 'Paid' ? 'bg-blue-500/10 text-blue-500 border-blue-500/20' : 'bg-slate-800 text-slate-500 border-slate-700'}`}>
-                          {w.payoutStatus}
-                        </span>
-                      </div>
+                      <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${w.verificationStatus === 'Verified' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border-amber-500/20'}`}>
+                        {w.verificationStatus}
+                      </span>
                       {w.verificationProof && (
                         <a href={w.verificationProof} target="_blank" rel="noreferrer" className="text-[10px] font-black text-blue-400 hover:underline flex items-center gap-1 uppercase tracking-widest">
                           <FileText className="w-3 h-3" /> Proof Attached
@@ -491,57 +484,6 @@ const AdminDashboard = () => {
                         </button>
                       )}
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* History Log */}
-      <div className="glass p-10 rounded-[3rem] border border-white/5 shadow-2xl">
-        <h2 className="text-3xl font-black text-white mb-10 flex items-center gap-4">
-          <History className="w-10 h-10 text-emerald-400" /> Historic Draw Registry
-        </h2>
-        
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em] border-b border-white/5">
-                <th className="px-6 py-6">Period</th>
-                <th className="px-6 py-6">Sequence</th>
-                <th className="px-6 py-6">Capital Pool</th>
-                <th className="px-6 py-6">Strategy</th>
-                <th className="px-6 py-6 text-right">Timestamp</th>
-              </tr>
-            </thead>
-            <tbody>
-              {draws.map(d => (
-                <tr key={d._id} className="hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-6">
-                    <span className="px-3 py-1 bg-slate-900 border border-white/10 rounded-lg font-black text-white">
-                      {d.month}/{d.year}
-                    </span>
-                  </td>
-                  <td className="px-6 py-6">
-                    <div className="flex gap-1.5">
-                      {d.winningNumbers?.map((num, i) => (
-                        <div key={i} className="w-8 h-8 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-center text-amber-500 font-black text-xs">
-                          {num}
-                        </div>
-                      ))}
-                    </div>
-                  </td>
-                  <td className="px-6 py-6">
-                    <p className="font-black text-emerald-400">${d.totalPool?.toFixed(2)}</p>
-                    <p className="text-[10px] font-bold text-slate-500">Rollover: ${d.jackpotRollover?.toFixed(2)}</p>
-                  </td>
-                  <td className="px-6 py-6 text-xs font-bold text-slate-400">
-                    {d.drawType || 'Random'}
-                  </td>
-                  <td className="px-6 py-6 text-right text-slate-500 text-xs font-bold">
-                    {new Date(d.createdAt).toLocaleDateString()}
                   </td>
                 </tr>
               ))}
