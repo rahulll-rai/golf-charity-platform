@@ -140,15 +140,15 @@ const Home = () => {
                 <span className="text-amber-400 font-bold tracking-wider uppercase text-sm mb-4 block">Fairness Guaranteed</span>
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">The Game Algorithm Explained</h2>
                 <p className="text-emerald-100/80 text-xl mb-10 leading-relaxed">
-                  We believe in total transparency. Our monthly draw algorithm is built on verifiable randomness to ensure every subscriber has a fair chance to win.
+                  We believe in total transparency. Our platform offers dual-strategy selection—Verifiable Algorithmic and Secure Random—ensuring every draw is fair and untamperable.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
                   {[
-                    "Takes your 5 most recent golf scores (1-45).",
-                    "A secure random number generator selects 5 winning numbers monthly.",
-                    "If you match 3 numbers, you win Tier 3 prizes.",
-                    "Match 4 for Tier 2, and all 5 for the Grand Prize.",
-                    "Fully automated, untamperable, and transparently verified."
+                    "Analyzes your 5 most recent golf scores (1-45).",
+                    "Choose between Verifiable Algorithmic or Secure Random draws.",
+                    "The Algorithmic method uses community score data to generate a verifiable seed.",
+                    "The Secure Random method uses cryptographic generators for pure entropy.",
+                    "Automated winner selection with zero manual intervention."
                   ].map((point, idx) => (
                     <div key={idx} className="flex items-start gap-4 bg-[#011c16]/50 p-4 rounded-xl border border-emerald-500/10">
                       <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-1">
