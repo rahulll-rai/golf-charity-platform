@@ -33,6 +33,30 @@ mongoose.connect(process.env.MONGO_URI)
         upcomingEvents: [
           { title: "Drive for a Cure Golf Day", date: "September 12, 2026", location: "Memphis, TN" }
         ]
+      },
+      {
+        name: "PGA HOPE",
+        description: "Introducing golf to veterans with disabilities to enhance their physical, mental, social and emotional well-being.",
+        image: "https://picsum.photos/seed/pgahope/600/400",
+        upcomingEvents: [
+          { title: "Veterans Golf Clinic", date: "November 11, 2026", location: "San Diego, CA" }
+        ]
+      },
+      {
+        name: "Audubon International",
+        description: "Promoting sustainability and environmental stewardship within the golf industry.",
+        image: "https://picsum.photos/seed/audubon/600/400",
+        upcomingEvents: [
+          { title: "Eco-Golf Summit", date: "April 22, 2026", location: "Denver, CO" }
+        ]
+      },
+      {
+        name: "Make-A-Wish Foundation",
+        description: "Creating life-changing wishes for children with critical illnesses.",
+        image: "https://picsum.photos/seed/makeawish/600/400",
+        upcomingEvents: [
+          { title: "Swings for Wishes", date: "October 5, 2026", location: "Orlando, FL" }
+        ]
       }
     ]);
     console.log("Successfully seeded charities.");
