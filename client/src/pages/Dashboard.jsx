@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../services/api";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { UserCircle, CreditCard, Heart, Trophy, Flag, Plus, Edit2, Trash2, Upload, Activity, ChevronRight, CheckCircle2 } from "lucide-react";
 
 const Dashboard = () => {
@@ -102,6 +102,8 @@ const Dashboard = () => {
       <div className="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
     </div>
   );
+
+  if (!user) return null;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-24">
