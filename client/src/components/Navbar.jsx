@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Trophy } from "lucide-react";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -27,8 +27,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
-            <Link to="/" onClick={closeMenu} className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-amber-400">
-              GolfCharity
+            <Link to="/" onClick={closeMenu} className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-amber-400 flex items-center gap-2">
+              <Trophy className="w-8 h-8 text-amber-400" /> GolfCharity
             </Link>
           </div>
           <div className="hidden md:block">
