@@ -74,6 +74,12 @@ const createCheckoutSession = async (req, res) => {
         endDate: endDate
       });
 
+      sendEmail(
+        user.email,
+        "Subscription Activated!",
+        `Hi ${user.name},\n\nYour ${planType} subscription is now active! You can now participate in monthly draws.`
+      );
+
       const frontendUrl = req.headers.origin || process.env.FRONTEND_URL || "http://localhost:5174";
       return res.status(200).json({ url: `${frontendUrl}/dashboard?success=true` });
     }
