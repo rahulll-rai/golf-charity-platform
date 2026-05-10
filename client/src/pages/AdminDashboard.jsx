@@ -244,7 +244,7 @@ const AdminDashboard = () => {
               </label>
 
               <button type="submit" className={`w-full py-5 rounded-2xl font-black text-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 shadow-xl ${isSimulation ? 'bg-amber-500 text-slate-950 shadow-amber-500/20' : 'bg-emerald-600 text-white shadow-emerald-500/20'}`}>
-                {isSimulation ? <><FlaskConical className="w-6 h-6" /> Test Simulation</> : <><Rocket className="w-6 h-6" /> Publish Official Draw</>}
+                {isSimulation ? <><FlaskConical className="w-6 h-6" /> Run Simulation</> : <><Rocket className="w-6 h-6" /> Release Official Draw</>}
               </button>
             </form>
 
