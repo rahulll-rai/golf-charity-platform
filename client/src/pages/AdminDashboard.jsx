@@ -114,125 +114,142 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-[#022c22] min-h-screen text-slate-100 font-sans">
+      <div className="flex items-center justify-between mb-10">
+        <h1 className="text-4xl font-extrabold text-white tracking-tight">Admin <span className="text-emerald-400">Command Center</span></h1>
+        <div className="px-4 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-sm font-bold shadow-[0_0_15px_rgba(251,191,36,0.2)]">
+          System Online
+        </div>
+      </div>
 
       {/* Analytics Reports */}
       {reports && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="glass p-4 rounded-xl border border-white/5">
-            <p className="text-sm text-slate-400">Active Users</p>
-            <p className="text-2xl font-bold text-white">{reports.activeUsers}</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          <div className="bg-[#011c16] p-6 rounded-2xl border border-emerald-500/20 shadow-lg relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all" />
+            <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest mb-2">Active Users</p>
+            <p className="text-4xl font-black text-white">{reports.activeUsers}</p>
           </div>
-          <div className="glass p-4 rounded-xl border border-white/5">
-            <p className="text-sm text-slate-400">Total Charity</p>
-            <p className="text-2xl font-bold text-green-400">${reports.totalCharityContributions}</p>
+          <div className="bg-[#011c16] p-6 rounded-2xl border border-emerald-500/20 shadow-lg relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all" />
+            <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest mb-2">Total Charity</p>
+            <p className="text-4xl font-black text-green-400">${reports.totalCharityContributions}</p>
           </div>
-          <div className="glass p-4 rounded-xl border border-white/5">
-            <p className="text-sm text-slate-400">Prize Pool Awarded</p>
-            <p className="text-2xl font-bold text-purple-400">${reports.totalPrizePoolAwarded.toFixed(2)}</p>
+          <div className="bg-[#011c16] p-6 rounded-2xl border border-emerald-500/20 shadow-lg relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all" />
+            <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest mb-2">Prizes Awarded</p>
+            <p className="text-4xl font-black text-amber-400">${reports.totalPrizePoolAwarded.toFixed(2)}</p>
           </div>
-          <div className="glass p-4 rounded-xl border border-white/5">
-            <p className="text-sm text-slate-400">Total Draws</p>
-            <p className="text-2xl font-bold text-white">{reports.totalDraws}</p>
+          <div className="bg-[#011c16] p-6 rounded-2xl border border-emerald-500/20 shadow-lg relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all" />
+            <p className="text-sm font-semibold text-emerald-200/60 uppercase tracking-widest mb-2">Total Draws</p>
+            <p className="text-4xl font-black text-white">{reports.totalDraws}</p>
           </div>
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
         
         {/* Run Draw Section */}
-        <div className="glass p-8 rounded-2xl">
-          <h2 className="text-xl font-bold mb-6 text-purple-400">Run Monthly Draw</h2>
-          <form onSubmit={handleRunDraw} className="space-y-4">
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <label className="block text-sm text-slate-400 mb-1">Month (1-12)</label>
+        <div className="lg:col-span-5 bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/30 shadow-2xl relative overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-amber-500/5 rounded-full blur-[80px] pointer-events-none" />
+          
+          <h2 className="text-2xl font-black mb-8 text-white flex items-center gap-3">
+            <span className="text-3xl">🎰</span> Run Monthly Draw
+          </h2>
+          
+          <form onSubmit={handleRunDraw} className="space-y-6 relative z-10">
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs font-bold text-emerald-200/60 uppercase tracking-wider mb-2">Month (1-12)</label>
                 <input 
                   type="number" min="1" max="12" required
                   value={month} onChange={(e) => setMonth(e.target.value)}
-                  className="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-2 text-white"
+                  className="w-full bg-[#022c22] border border-emerald-500/30 rounded-xl px-4 py-3 text-white text-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
                 />
               </div>
-              <div className="flex-1">
-                <label className="block text-sm text-slate-400 mb-1">Year</label>
+              <div>
+                <label className="block text-xs font-bold text-emerald-200/60 uppercase tracking-wider mb-2">Year</label>
                 <input 
                   type="number" required
                   value={year} onChange={(e) => setYear(e.target.value)}
-                  className="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-2 text-white"
+                  className="w-full bg-[#022c22] border border-emerald-500/30 rounded-xl px-4 py-3 text-white text-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
                 />
               </div>
             </div>
             
-            <div className="flex gap-4 items-center">
-              <div className="flex-1">
-                <label className="block text-sm text-slate-400 mb-1">Draw Type</label>
+            <div className="grid grid-cols-2 gap-6 items-end">
+              <div>
+                <label className="block text-xs font-bold text-emerald-200/60 uppercase tracking-wider mb-2">Draw Type</label>
                 <select 
                   value={drawType} onChange={(e) => setDrawType(e.target.value)}
-                  className="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-2 text-white"
+                  className="w-full bg-[#022c22] border border-emerald-500/30 rounded-xl px-4 py-3 text-white text-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
                 >
-                  <option value="Random">Random</option>
-                  <option value="Algorithmic">Algorithmic (Frequent Scores)</option>
+                  <option value="Random">🎲 Random</option>
+                  <option value="Algorithmic">⚙️ Algorithmic</option>
                 </select>
               </div>
-              <div className="flex-1 flex items-center gap-2 mt-6">
+              <div className="flex items-center gap-3 bg-[#022c22] border border-emerald-500/30 rounded-xl px-4 py-3">
                 <input 
                   type="checkbox" id="sim"
                   checked={isSimulation} onChange={(e) => setIsSimulation(e.target.checked)}
-                  className="w-4 h-4 accent-purple-500"
+                  className="w-5 h-5 accent-amber-500 cursor-pointer"
                 />
-                <label htmlFor="sim" className="text-sm text-slate-300">Simulation Mode</label>
+                <label htmlFor="sim" className="text-sm font-semibold text-emerald-100 cursor-pointer">Simulation Mode</label>
               </div>
             </div>
 
-            <button type="submit" className={`w-full py-3 rounded-lg font-bold transition-colors ${isSimulation ? 'bg-orange-600 hover:bg-orange-700' : 'bg-purple-600 hover:bg-purple-700'}`}>
-              {isSimulation ? 'Run Simulation' : 'Publish Official Draw'}
+            <button type="submit" className={`w-full py-4 rounded-xl font-black text-xl transition-all transform hover:-translate-y-1 shadow-lg mt-4 ${isSimulation ? 'bg-amber-500 hover:bg-amber-400 text-emerald-950 shadow-[0_0_20px_rgba(251,191,36,0.4)]' : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)]'}`}>
+              {isSimulation ? '🧪 Run Simulation' : '🚀 Publish Official Draw'}
             </button>
           </form>
 
           {drawResult && (
-            <div className="mt-8 p-4 bg-slate-900/60 rounded-xl border border-white/10">
-              <h3 className="font-bold mb-2 text-green-400">Draw Results!</h3>
-              <p className="text-sm mb-4">Winning Numbers: <span className="font-mono bg-white/10 px-2 py-1 rounded">{drawResult.draw.winningNumbers.join(', ')}</span></p>
+            <div className="mt-8 p-6 bg-[#022c22] rounded-2xl border border-emerald-500/30 shadow-inner">
+              <h3 className="font-bold mb-4 text-emerald-400 text-lg flex items-center gap-2">✓ Draw Executed</h3>
+              <p className="text-sm mb-6 text-emerald-100/70">Winning Numbers: <span className="font-mono bg-emerald-900/50 text-amber-400 font-bold px-3 py-1.5 rounded-lg border border-emerald-500/20 ml-2 tracking-widest">{drawResult.draw.winningNumbers.join(' - ')}</span></p>
               
-              <h4 className="font-semibold text-sm text-slate-400 mb-2">Winners ({drawResult.winners.length})</h4>
-              <ul className="space-y-2 max-h-40 overflow-y-auto text-sm">
+              <h4 className="font-bold text-xs text-emerald-200/60 uppercase tracking-widest mb-3">Winners Detected ({drawResult.winners.length})</h4>
+              <ul className="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
                 {drawResult.winners.map((w, i) => (
-                  <li key={i} className="flex justify-between bg-white/5 p-2 rounded">
-                    <span>User ID: {w.user}</span>
-                    <span className="text-pink-400 font-medium">{w.prize}</span>
+                  <li key={i} className="flex justify-between items-center bg-[#011c16] border border-white/5 p-3 rounded-lg">
+                    <span className="text-sm font-medium text-emerald-100/90">{w.user}</span>
+                    <span className="text-amber-400 font-black text-sm bg-amber-500/10 px-2 py-1 rounded">{w.prize}</span>
                   </li>
                 ))}
-                {drawResult.winners.length === 0 && <li className="text-slate-500">No winners this month.</li>}
+                {drawResult.winners.length === 0 && <li className="text-emerald-500/50 italic text-sm py-2">No winners matched the criteria.</li>}
               </ul>
             </div>
           )}
         </div>
 
         {/* Users Section */}
-        <div className="glass p-8 rounded-2xl">
-          <h2 className="text-xl font-bold mb-6 text-purple-400">Manage Users</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-white/10 text-slate-400">
-                  <th className="pb-3">Name</th>
-                  <th className="pb-3">Email</th>
-                  <th className="pb-3">Status</th>
-                  <th className="pb-3">Role</th>
+        <div className="lg:col-span-7 bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/20 shadow-2xl flex flex-col">
+          <h2 className="text-2xl font-black mb-6 text-white flex items-center gap-3">
+            <span className="text-emerald-500">👥</span> Manage Users
+          </h2>
+          <div className="flex-1 overflow-auto rounded-xl border border-white/5 bg-[#022c22]">
+            <table className="w-full text-left text-sm border-collapse">
+              <thead className="bg-[#011c16] sticky top-0 z-10">
+                <tr className="text-emerald-200/60 text-xs uppercase tracking-widest">
+                  <th className="py-4 px-6 font-semibold">User</th>
+                  <th className="py-4 px-6 font-semibold">Status</th>
+                  <th className="py-4 px-6 font-semibold">Role</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-white/5">
                 {users.map(u => (
-                  <tr key={u._id} className="border-b border-white/5 hover:bg-white/5">
-                    <td className="py-3">{u.name}</td>
-                    <td className="py-3 text-slate-400">{u.email}</td>
-                    <td className="py-3">
-                      <span className={`px-2 py-1 rounded text-xs ${u.subscriptionStatus === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 text-slate-300'}`}>
+                  <tr key={u._id} className="hover:bg-white/5 transition-colors group">
+                    <td className="py-4 px-6">
+                      <p className="font-bold text-white mb-0.5 group-hover:text-amber-400 transition-colors">{u.name}</p>
+                      <p className="text-xs text-emerald-100/50">{u.email}</p>
+                    </td>
+                    <td className="py-4 px-6">
+                      <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide ${u.subscriptionStatus === 'active' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-400 border border-slate-700'}`}>
                         {u.subscriptionStatus}
                       </span>
                     </td>
-                    <td className="py-3 text-xs">{u.role}</td>
+                    <td className="py-4 px-6 text-xs font-medium text-emerald-100/70">{u.role}</td>
                   </tr>
                 ))}
               </tbody>
@@ -242,26 +259,28 @@ const AdminDashboard = () => {
 
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Charities Section */}
-        <div className="glass p-8 rounded-2xl">
-          <h2 className="text-xl font-bold mb-6 text-purple-400">Manage Charities</h2>
-          <div className="overflow-x-auto max-h-96 overflow-y-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-white/10 text-slate-400">
-                  <th className="pb-3">Name</th>
-                  <th className="pb-3">Donations</th>
-                  <th className="pb-3">Actions</th>
+        <div className="bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/20 shadow-2xl flex flex-col h-[500px]">
+          <h2 className="text-2xl font-black mb-6 text-white flex items-center gap-3">
+            <span className="text-amber-400">🤝</span> Manage Charities
+          </h2>
+          <div className="flex-1 overflow-auto rounded-xl border border-white/5 bg-[#022c22] custom-scrollbar">
+            <table className="w-full text-left text-sm border-collapse">
+              <thead className="bg-[#011c16] sticky top-0 z-10">
+                <tr className="text-emerald-200/60 text-xs uppercase tracking-widest">
+                  <th className="py-4 px-6 font-semibold">Organization</th>
+                  <th className="py-4 px-6 font-semibold">Raised</th>
+                  <th className="py-4 px-6 font-semibold text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-white/5">
                 {charities.map(c => (
-                  <tr key={c._id} className="border-b border-white/5 hover:bg-white/5">
-                    <td className="py-3">{c.name}</td>
-                    <td className="py-3 text-green-400 font-bold">${c.totalDonations}</td>
-                    <td className="py-3">
-                      <button onClick={() => handleDeleteCharity(c._id)} className="text-red-400 hover:text-red-300">Delete</button>
+                  <tr key={c._id} className="hover:bg-white/5 transition-colors">
+                    <td className="py-4 px-6 font-bold text-emerald-100/90">{c.name}</td>
+                    <td className="py-4 px-6 text-amber-400 font-black tracking-wide">\${c.totalDonations.toLocaleString()}</td>
+                    <td className="py-4 px-6 text-right">
+                      <button onClick={() => handleDeleteCharity(c._id)} className="text-xs bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 px-3 py-1.5 rounded-lg transition-colors font-semibold">Remove</button>
                     </td>
                   </tr>
                 ))}
@@ -271,26 +290,28 @@ const AdminDashboard = () => {
         </div>
 
         {/* Scores Section */}
-        <div className="glass p-8 rounded-2xl">
-          <h2 className="text-xl font-bold mb-6 text-purple-400">Manage Scores</h2>
-          <div className="overflow-x-auto max-h-96 overflow-y-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-white/10 text-slate-400">
-                  <th className="pb-3">User</th>
-                  <th className="pb-3">Score</th>
-                  <th className="pb-3">Date</th>
-                  <th className="pb-3">Actions</th>
+        <div className="bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/20 shadow-2xl flex flex-col h-[500px]">
+          <h2 className="text-2xl font-black mb-6 text-white flex items-center gap-3">
+            <span className="text-emerald-400">⛳</span> Score Activity
+          </h2>
+          <div className="flex-1 overflow-auto rounded-xl border border-white/5 bg-[#022c22] custom-scrollbar">
+            <table className="w-full text-left text-sm border-collapse">
+              <thead className="bg-[#011c16] sticky top-0 z-10">
+                <tr className="text-emerald-200/60 text-xs uppercase tracking-widest">
+                  <th className="py-4 px-6 font-semibold">Golfer</th>
+                  <th className="py-4 px-6 font-semibold">Score</th>
+                  <th className="py-4 px-6 font-semibold">Date</th>
+                  <th className="py-4 px-6 font-semibold text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-white/5">
                 {scores.map(s => (
-                  <tr key={s._id} className="border-b border-white/5 hover:bg-white/5">
-                    <td className="py-3">{s.user?.name || "Unknown"}</td>
-                    <td className="py-3 font-bold text-purple-300">{s.score}</td>
-                    <td className="py-3 text-slate-400">{new Date(s.date).toLocaleDateString()}</td>
-                    <td className="py-3">
-                      <button onClick={() => handleDeleteScore(s._id)} className="text-red-400 hover:text-red-300">Delete</button>
+                  <tr key={s._id} className="hover:bg-white/5 transition-colors">
+                    <td className="py-4 px-6 font-medium text-emerald-100/90">{s.user?.name || "Unknown"}</td>
+                    <td className="py-4 px-6"><span className="bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-black px-2 py-1 rounded-md">{s.score}</span></td>
+                    <td className="py-4 px-6 text-emerald-100/50 text-xs font-medium">{new Date(s.date).toLocaleDateString()}</td>
+                    <td className="py-4 px-6 text-right">
+                      <button onClick={() => handleDeleteScore(s._id)} className="text-red-400 hover:text-red-300 font-medium text-xs px-2 py-1">Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -298,69 +319,78 @@ const AdminDashboard = () => {
             </table>
           </div>
         </div>
-        <div className="mt-8 glass p-8 rounded-2xl">
-        <h2 className="text-xl font-bold mb-6 text-purple-400">Verify Winners & Payouts</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-white/10 text-slate-400">
-                <th className="pb-3">User</th>
-                <th className="pb-3">Draw</th>
-                <th className="pb-3">Prize</th>
-                <th className="pb-3">Proof</th>
-                <th className="pb-3">Status</th>
-                <th className="pb-3">Actions</th>
+      </div>
+
+      {/* Verification Section */}
+      <div className="bg-[#011c16]/80 p-8 rounded-3xl border border-emerald-500/30 shadow-2xl mt-8 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-[800px] h-full bg-emerald-900/5 rounded-full blur-[100px] pointer-events-none" />
+        
+        <h2 className="text-2xl font-black mb-8 text-white flex items-center gap-3 relative z-10">
+          <span className="text-amber-400">🏆</span> Verify Winners & Payouts
+        </h2>
+        
+        <div className="overflow-x-auto rounded-xl border border-emerald-500/20 bg-[#022c22] relative z-10">
+          <table className="w-full text-left text-sm border-collapse">
+            <thead className="bg-[#011c16] border-b border-emerald-500/20">
+              <tr className="text-emerald-200/60 text-xs uppercase tracking-widest">
+                <th className="py-5 px-6 font-semibold">Champion</th>
+                <th className="py-5 px-6 font-semibold">Draw</th>
+                <th className="py-5 px-6 font-semibold">Prize Status</th>
+                <th className="py-5 px-6 font-semibold">Verification</th>
+                <th className="py-5 px-6 font-semibold">Workflow</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-emerald-500/10">
               {winners.map(w => (
-                <tr key={w._id} className="border-b border-white/5 hover:bg-white/5">
-                  <td className="py-3">{w.user?.name}</td>
-                  <td className="py-3 text-slate-400">{w.draw?.month}/{w.draw?.year}</td>
-                  <td className="py-3">
-                    <p className="font-bold text-pink-400">{w.prize}</p>
-                    <p className="text-xs text-slate-400">${w.prizeAmount?.toFixed(2)}</p>
+                <tr key={w._id} className="hover:bg-emerald-900/20 transition-colors">
+                  <td className="py-5 px-6 font-bold text-white">{w.user?.name}</td>
+                  <td className="py-5 px-6 font-medium text-emerald-100/60">{w.draw?.month}/{w.draw?.year}</td>
+                  <td className="py-5 px-6">
+                    <p className="font-black text-amber-400 mb-1 tracking-wide">{w.prize}</p>
+                    <p className="text-xs font-bold text-emerald-400">\${w.prizeAmount?.toFixed(2)}</p>
                   </td>
-                  <td className="py-3">
-                    {w.verificationProof ? (
-                      <a href={w.verificationProof} target="_blank" rel="noreferrer" className="text-blue-400 underline text-xs">View Proof</a>
-                    ) : (
-                      <span className="text-xs text-slate-500">No Proof</span>
-                    )}
-                  </td>
-                  <td className="py-3">
-                    <div className="flex flex-col gap-1">
-                      <span className={`px-2 py-0.5 rounded text-[10px] w-fit ${w.verificationStatus === 'Verified' ? 'bg-green-500/20 text-green-400' : w.verificationStatus === 'Rejected' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
-                        {w.verificationStatus}
-                      </span>
-                      <span className={`px-2 py-0.5 rounded text-[10px] w-fit ${w.payoutStatus === 'Paid' ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 text-slate-300'}`}>
-                        Payout: {w.payoutStatus}
-                      </span>
+                  <td className="py-5 px-6">
+                    <div className="flex flex-col gap-2 items-start">
+                      {w.verificationProof ? (
+                        <a href={w.verificationProof} target="_blank" rel="noreferrer" className="text-amber-400 hover:text-amber-300 hover:underline text-xs font-bold flex items-center gap-1">
+                          📄 View Proof
+                        </a>
+                      ) : (
+                        <span className="text-xs font-medium text-emerald-100/30">No Proof Submitted</span>
+                      )}
+                      
+                      <div className="flex gap-2">
+                        <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase border ${w.verificationStatus === 'Verified' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : w.verificationStatus === 'Rejected' ? 'bg-red-500/20 text-red-400 border-red-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30'}`}>
+                          {w.verificationStatus}
+                        </span>
+                        <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase border ${w.payoutStatus === 'Paid' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-slate-800 text-slate-400 border-slate-700'}`}>
+                          Payout: {w.payoutStatus}
+                        </span>
+                      </div>
                     </div>
                   </td>
-                  <td className="py-3">
-                    <div className="flex gap-2">
+                  <td className="py-5 px-6">
+                    <div className="flex flex-wrap gap-2">
                       {w.verificationStatus !== 'Verified' && (
-                        <button onClick={() => handleVerify(w._id, 'Verified', w.payoutStatus)} className="text-xs bg-green-600/30 text-green-300 px-2 py-1 rounded hover:bg-green-600/50">Approve</button>
+                        <button onClick={() => handleVerify(w._id, 'Verified', w.payoutStatus)} className="text-xs font-bold tracking-wide uppercase bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 px-3 py-2 rounded-lg transition-all transform hover:scale-105">Approve</button>
                       )}
                       {w.verificationStatus !== 'Rejected' && (
-                        <button onClick={() => handleVerify(w._id, 'Rejected', w.payoutStatus)} className="text-xs bg-red-600/30 text-red-300 px-2 py-1 rounded hover:bg-red-600/50">Reject</button>
+                        <button onClick={() => handleVerify(w._id, 'Rejected', w.payoutStatus)} className="text-xs font-bold tracking-wide uppercase bg-red-600/80 hover:bg-red-500 text-white shadow-lg shadow-red-500/20 px-3 py-2 rounded-lg transition-all">Reject</button>
                       )}
                       {w.verificationStatus === 'Verified' && w.payoutStatus === 'Pending' && (
-                        <button onClick={() => handleVerify(w._id, 'Verified', 'Paid')} className="text-xs bg-purple-600/30 text-purple-300 px-2 py-1 rounded hover:bg-purple-600/50">Mark Paid</button>
+                        <button onClick={() => handleVerify(w._id, 'Verified', 'Paid')} className="text-xs font-bold tracking-wide uppercase bg-amber-500 hover:bg-amber-400 text-emerald-950 shadow-lg shadow-amber-500/20 px-3 py-2 rounded-lg transition-all transform hover:scale-105">Release Payout</button>
                       )}
                     </div>
                   </td>
                 </tr>
               ))}
               {winners.length === 0 && (
-                <tr><td colSpan="6" className="py-4 text-center text-slate-500">No winners to verify yet.</td></tr>
+                <tr><td colSpan="5" className="py-12 text-center text-emerald-200/40 font-medium">No winners waiting for verification.</td></tr>
               )}
             </tbody>
           </table>
         </div>
       </div>
-    </div>
     </div>
   );
 };
